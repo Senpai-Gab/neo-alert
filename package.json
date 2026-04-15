@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "A futuristic glassmorphism toast notification library. Zero dependencies, framework-agnostic.",
   "main": "dist/neo-alert.js",
-  "module": "dist/neo-alert.js",
+  "module": "dist/neo-alert.esm.js",
   "browser": "dist/neo-alert.js",
+  "exports": {
+    ".": {
+      "import": "./dist/neo-alert.esm.js",
+      "require": "./dist/neo-alert.js",
+      "default": "./dist/neo-alert.js"
+    }
+  },
   "scripts": {
     "start": "npx serve . -p 3000",
     "dev": "npx serve . -p 3000"
@@ -18,15 +25,15 @@
     "ui",
     "vanilla-js"
   ],
-  "author": "YOUR-NAME",
+  "author": "senpai-gab",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Senpai-Gab/neo-alert.git"
+    "url": "https://github.com/senpai-gab/neo-alert.git"
   },
-  "homepage": "https://github.com/Senpai-Gab/neo-alert",
+  "homepage": "https://senpai-gab.github.io/neo-alert",
   "bugs": {
-    "url": "https://github.com/Senpai-Gab/neo-alert/issues"
+    "url": "https://github.com/senpai-gab/neo-alert/issues"
   },
   "files": [
     "dist/",

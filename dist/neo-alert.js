@@ -1,12 +1,15 @@
 /*!
  * NEO ALERT v1.0.0
  * A futuristic toast notification library
- * https://github.com/YOUR-USERNAME/neo-alert
+ * https://github.com/senpai-gab/neo-alert
  * MIT License
  */
 (function (global, factory) {
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = factory();
+    var fn = factory();
+    module.exports = fn;
+    module.exports.neoAlert = fn;
+    module.exports.default = fn;
   } else if (typeof define === 'function' && define.amd) {
     define([], factory);
   } else {
@@ -137,6 +140,41 @@
 
     /* Drag state */
     '.neo-dragging{opacity:.85;cursor:grabbing;transition:none!important;}',
+
+    /* ── Mobile responsive ─────────────────────────────────────
+       On small screens:
+       · Container spans full width, toasts are centre-aligned
+       · Toast adapts to viewport width (no fixed 320px)
+       · Animations use translateY only — prevents horizontal
+         overflow / iOS scroll-bounce that "breaks layout"
+       · Safe-area-inset support for notched / home-bar devices
+    ──────────────────────────────────────────────────────────── */
+    '@media(max-width:600px){',
+      '#neo-alert-root{',
+        'left:0!important;right:0!important;',
+        'align-items:center!important;',
+        'padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 12px)!important;',
+      '}',
+      '#neo-alert-root.neo-pos-tr,#neo-alert-root.neo-pos-tl{',
+        'top:0!important;bottom:auto!important;',
+        'flex-direction:column!important;',
+        'padding:calc(env(safe-area-inset-top,0px) + 12px) 12px 12px!important;',
+      '}',
+      '#neo-alert-root.neo-pos-br,#neo-alert-root.neo-pos-bl{',
+        'bottom:0!important;top:auto!important;',
+        'flex-direction:column-reverse!important;',
+      '}',
+      '.neo-toast{width:calc(100vw - 24px)!important;max-width:420px!important;}',
+      /* Override entry animation — fade+slide up instead of translateX */
+      '#neo-alert-root .neo-toast.neo-enter{animation-name:neo-in-m!important;}',
+      /* Override exit animation — no translateX */
+      '#neo-alert-root .neo-toast.neo-exit{animation-name:neo-out-m!important;}',
+      '@keyframes neo-in-m{from{opacity:0;transform:translateY(22px) scale(.95)}to{opacity:1;transform:none}}',
+      '@keyframes neo-out-m{',
+        'from{opacity:1;transform:none;max-height:120px;margin-bottom:0}',
+        'to{opacity:0;transform:scale(.9) translateY(-8px);max-height:0;padding:0;margin-bottom:-10px}',
+      '}',
+    '}',
   ].join('');
 
   /* ─────────────────────────────────────────

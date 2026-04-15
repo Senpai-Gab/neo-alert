@@ -8,16 +8,10 @@
     content="NEO ALERT — A futuristic toast notification library. Glassmorphism UI, full theming, promise API.">
   <title>NEO ALERT — Toast Notification Library</title>
   <link rel="icon" href="src/img/alert-icon.png">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-    rel="stylesheet">
-  <!-- NEO ALERT Library -->
-  <script src="dist/neo-alert.js"></script>
   <!-- Neo Custom CSS -->
   <link rel="stylesheet" href="src/css/style.css">
-
+  <!-- NEO ALERT Library -->
+  <script src="dist/neo-alert.js"></script>
 </head>
 
 <body>
@@ -34,7 +28,18 @@
       <a href="#features">Features</a>
     </div>
     <span class="nav-badge">v1.0.0</span>
+    <button class="nav-ham" id="nav-ham" onclick="toggleDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="#install" onclick="closeDrawer()">Install</a>
+    <a href="#demo" onclick="closeDrawer()">Demo</a>
+    <a href="#themes" onclick="closeDrawer()">Themes</a>
+    <a href="#builder" onclick="closeDrawer()">Customizer</a>
+    <a href="#api" onclick="closeDrawer()">API</a>
+    <a href="#features" onclick="closeDrawer()">Features</a>
+  </div>
 
   <div class="page">
 
@@ -113,16 +118,16 @@
           <div class="cdn-box">
             <div>
               <div class="cdn-label">JavaScript (jsDelivr)</div>
-              <div class="cdn-link">https://cdn.jsdelivr.net/npm/neo-alert@1.0.0/dist/neo-alert.min.js</div>
+              <div class="cdn-link">https://cdn.jsdelivr.net/gh/senpai-gab/neo-alert/dist/neo-alert.min.js</div>
             </div>
             <div>
-              <div class="cdn-label">JavaScript (unpkg)</div>
+              <div class="cdn-label">JavaScript (unpkg — after npm publish)</div>
               <div class="cdn-link">https://unpkg.com/neo-alert@1.0.0/dist/neo-alert.min.js</div>
             </div>
             <div class="code-block" style="margin-top:.5rem;border-radius:var(--r12);position:relative">
               <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
               <pre><span class="cm">&lt;!-- Add before &lt;/body&gt; --&gt;</span>
-<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cdn.jsdelivr.net/npm/neo-alert@1.0.0/dist/neo-alert.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cdn.jsdelivr.net/gh/senpai-gab/neo-alert/dist/neo-alert.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
 
 <span class="tag">&lt;script&gt;</span>
   <span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Loaded from CDN!'</span>);
@@ -303,10 +308,10 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
           <div class="demo-preview">
             <div style="text-align:center">
               <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
-                style="margin:0 auto 14px;display:block;opacity:.15">
-                <rect x="4" y="10" width="44" height="32" rx="9" stroke="#dde3f0" stroke-width="1.5" />
-                <path d="M15 24h22M15 30h14" stroke="#dde3f0" stroke-width="1.5" stroke-linecap="round" />
-                <circle cx="42" cy="14" r="7" fill="#4f8cff" />
+                style="margin:0 auto 14px;display:block;opacity:.4">
+                <rect x="4" y="10" width="44" height="32" rx="9" stroke="#AEAEB2" stroke-width="1.5" />
+                <path d="M15 24h22M15 30h14" stroke="#AEAEB2" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="42" cy="14" r="7" fill="#007AFF" />
                 <path d="M39.5 14l2 2 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
@@ -662,7 +667,8 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
           <div style="height:1rem"></div>
           <div class="api-sig">neoAlert.version</div>
           <p class="api-desc" style="margin-top:.5rem">Returns the current version string: <code
-              style="font-family:var(--mono);font-size:11px;color:var(--info)">"1.0.0"</code></p>
+              style="font-family:var(--mono);font-size:11px;color:var(--info);background:rgba(50,173,230,.08);padding:2px 6px;border-radius:4px;">"1.0.0"</code>
+          </p>
         </div>
       </div>
     </section>
@@ -728,7 +734,7 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
 
     <div class="divider"></div>
     <footer class="footer">
-      <p>NEO ALERT · <a href="https://github.com/YOUR-USERNAME/neo-alert">GitHub</a> · v1.0.0 · MIT License</p>
+      <p>NEO ALERT · <a href="https://github.com/senpai-gab/neo-alert">GitHub</a> · v1.0.0 · MIT License</p>
     </footer>
 
   </div>
@@ -736,6 +742,40 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
   <!-- ════════════════════════════════════════
      DEMO + THEMES + BUILDER LOGIC  (demo/app.js contents inlined)
 ════════════════════════════════════════ -->
+  <script>
+    function toggleDrawer() {
+      var d = document.getElementById('nav-drawer');
+      var h = document.getElementById('nav-ham');
+      var open = d.classList.toggle('open');
+      h.style.opacity = open ? '.6' : '1';
+    }
+    function closeDrawer() {
+      document.getElementById('nav-drawer').classList.remove('open');
+      document.getElementById('nav-ham').style.opacity = '1';
+    }
+    // Close drawer on outside click
+    document.addEventListener('click', function (e) {
+      var drawer = document.getElementById('nav-drawer');
+      var ham = document.getElementById('nav-ham');
+      if (drawer.classList.contains('open') && !drawer.contains(e.target) && !ham.contains(e.target)) {
+        closeDrawer();
+      }
+    });
+    // Active nav link on scroll
+    var navLinks = document.querySelectorAll('.nav-links a');
+    var sections = ['install', 'demo', 'themes', 'builder', 'api', 'features'];
+    window.addEventListener('scroll', function () {
+      var pos = window.scrollY + 100;
+      var current = 'install';
+      sections.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && el.offsetTop <= pos) current = id;
+      });
+      navLinks.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
   <script src="demo/app.js"></script>
 
 </body>

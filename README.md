@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](#)
 [![Size](https://img.shields.io/badge/size-~3KB_gzip-brightgreen)](#)
 
-**[Live Demo →](https://github.com/Senpai-Gab/neo-alert.git)**
+**[Live Demo →](https://senpai-gab.github.io/neo-alert)**
 
 ---
 
@@ -23,13 +23,34 @@
 - 6 built-in theme presets
 - Smart stacking (max toast queue)
 - Zero dependencies
-- UMD build — works in npm, CDN, script tag
+- UMD + ESM builds — works in npm, CDN, script tag
 
 ---
 
 ## Installation
 
+### CDN (jsDelivr — GitHub, works immediately, no npm needed)
+
+```html
+<!-- UMD — standard script tag (recommended for most sites) -->
+<script src="https://cdn.jsdelivr.net/gh/senpai-gab/neo-alert/dist/neo-alert.min.js"></script>
+
+<script>
+  neoAlert.success('Hello from CDN!');
+</script>
+```
+
+```html
+<!-- ESM — for modern browsers without a bundler -->
+<script type="module">
+  import { neoAlert } from 'https://cdn.jsdelivr.net/gh/senpai-gab/neo-alert/dist/neo-alert.esm.js';
+  neoAlert.success('Hello ESM!');
+</script>
+```
+
 ### npm / yarn / pnpm
+
+> ⚠️ Publish your package first with `npm publish` before this works.
 
 ```bash
 npm install neo-alert
@@ -40,22 +61,27 @@ pnpm add neo-alert
 ```
 
 ```js
+// ESM (Vite, Webpack, Rollup, modern bundlers)
 import { neoAlert } from 'neo-alert';
+neoAlert.success('Hello!');
+
+// CommonJS (Node / older setups)
+const neoAlert = require('neo-alert');
+neoAlert.success('Hello!');
+// or with destructuring:
+const { neoAlert } = require('neo-alert');
 neoAlert.success('Hello!');
 ```
 
-### CDN (jsDelivr)
+### Self-host (Download)
+
+Download `dist/neo-alert.min.js` from this repo and host it yourself:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/neo-alert@1.0.0/dist/neo-alert.min.js"></script>
-```
-
-### Download
-
-Download `dist/neo-alert.js` from this repo and include it:
-
-```html
-<script src="/js/neo-alert.js"></script>
+<script src="/js/neo-alert.min.js"></script>
+<script>
+  neoAlert.success('Ready!');
+</script>
 ```
 
 ---
@@ -107,12 +133,14 @@ neoAlert({
 | `theme` | object | — | Custom visual overrides (see Theming) |
 | `onDismiss` | function | — | Callback when toast closes |
 
-### `neoAlert.success(title, options?)`
-### `neoAlert.error(title, options?)`
-### `neoAlert.warning(title, options?)`
-### `neoAlert.info(title, options?)`
+### Shorthand methods
 
-Shorthand methods. Return the toast ID.
+```js
+neoAlert.success(title, options?)
+neoAlert.error(title, options?)
+neoAlert.warning(title, options?)
+neoAlert.info(title, options?)
+```
 
 ### `neoAlert.promise(promise, messages)`
 
@@ -151,8 +179,6 @@ neoAlert.configure({
 
 ## Theming
 
-Pass a `theme` object to override any visual property per-toast:
-
 ```js
 neoAlert.success('Saved!', {
   theme: {
@@ -170,8 +196,6 @@ neoAlert.success('Saved!', {
   }
 });
 ```
-
-Use the **[interactive builder](https://github.com/Senpai-Gab/neo-alert.git#builder)** to generate this code visually.
 
 ---
 
@@ -222,22 +246,41 @@ const notify = () => proxy.$toast.success('Vue toast!');
 
 ---
 
+## Publishing to npm
+
+To make `npm install neo-alert` work, publish once:
+
+```bash
+npm login
+npm publish
+```
+
+After publishing, the unpkg CDN also works:
+```
+https://unpkg.com/neo-alert@1.0.0/dist/neo-alert.min.js
+```
+
+---
+
 ## Project Structure
 
 ```
 neo-alert/
-├── index.html          ← Documentation & demo site (GitHub Pages)
+├── index.html              ← Documentation & demo site (GitHub Pages)
 ├── README.md
 ├── package.json
 ├── .gitignore
 ├── dist/
-│   └── neo-alert.js    ← The library (include this in your project)
+│   ├── neo-alert.js        ← UMD build (script tag, require)
+│   ├── neo-alert.min.js    ← UMD minified
+│   ├── neo-alert.esm.js    ← ESM build (import/export)
+│   └── neo-alert.esm.min.js← ESM minified
 └── demo/
-    └── app.js          ← Demo page logic
+    └── app.js              ← Demo page logic
 ```
 
 ---
 
 ## License
 
-MIT © YOUR-USERNAME
+MIT © senpai-gab

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="NEO ALERT — A futuristic toast notification library. Glassmorphism UI, full theming, promise API.">
+  <title>NEO ALERT — Toast Notification Library</title>
+  <link rel="icon" href="src/img/alert-icon.png">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <!-- NEO ALERT Library -->
+  <script src="dist/neo-alert.js"></script>
+  <!-- Neo Custom CSS -->
+  <link rel="stylesheet" href="src/css/style.css">
+
+</head>
+
+<body>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="topnav">
+    <a class="nav-logo" href="#">⬡ NEO ALERT</a>
+    <div class="nav-links">
+      <a href="#install" class="active">Install</a>
+      <a href="#demo">Demo</a>
+      <a href="#themes">Themes</a>
+      <a href="#builder">Customizer</a>
+      <a href="#api">API</a>
+      <a href="#features">Features</a>
+    </div>
+    <span class="nav-badge">v1.0.0</span>
+  </nav>
+
+  <div class="page">
+
+    <!-- ════════ HERO ════════ -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Production Ready · Zero Dependencies
+      </div>
+      <h1>NEO ALERT</h1>
+      <p>The futuristic toast notification library. Glassmorphism UI, full theming, promise API — works in any JS
+        project.</p>
+      <div class="hero-pills">
+        <span class="pill"><span class="dot"></span>Framework Agnostic</span>
+        <span class="pill">~3KB gzip</span>
+        <span class="pill">0 Dependencies</span>
+        <span class="pill">TypeScript Ready</span>
+        <span class="pill">Drag to Dismiss</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ INSTALL ════════ -->
+    <section class="sect" id="install">
+      <div class="eyebrow">Get Started</div>
+      <div class="sect-title">Installation</div>
+      <div class="sect-sub">Choose your preferred method — npm, yarn, pnpm, or a plain script tag for instant use.</div>
+
+      <div class="code-shell">
+        <div class="tab-row" id="install-tabs">
+          <button class="tab-btn on" onclick="switchTab('install-tabs','ip-npm',this)">npm</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-yarn',this)">yarn</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-pnpm',this)">pnpm</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-cdn',this)">CDN</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-script',this)">Script Tag</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-react',this)">React</button>
+          <button class="tab-btn" onclick="switchTab('install-tabs','ip-vue',this)">Vue</button>
+        </div>
+
+        <div class="tab-pane on" id="ip-npm">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="cm"># 1. Install the package</span>
+<span class="fn">npm</span> install neo-alert
+
+<span class="cm"># 2. Import in your JavaScript file</span>
+<span class="kw">import</span> { <span class="obj">neoAlert</span> } <span class="kw">from</span> <span class="str">'neo-alert'</span>;
+
+<span class="cm"># 3. Use it!</span>
+<span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Hello from NEO ALERT!'</span>);</pre>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-yarn">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="fn">yarn</span> add neo-alert
+
+<span class="kw">import</span> { <span class="obj">neoAlert</span> } <span class="kw">from</span> <span class="str">'neo-alert'</span>;
+<span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Hello from NEO ALERT!'</span>);</pre>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-pnpm">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="fn">pnpm</span> add neo-alert
+
+<span class="kw">import</span> { <span class="obj">neoAlert</span> } <span class="kw">from</span> <span class="str">'neo-alert'</span>;
+<span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Hello from NEO ALERT!'</span>);</pre>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-cdn">
+          <div class="cdn-box">
+            <div>
+              <div class="cdn-label">JavaScript (jsDelivr)</div>
+              <div class="cdn-link">https://cdn.jsdelivr.net/npm/neo-alert@1.0.0/dist/neo-alert.min.js</div>
+            </div>
+            <div>
+              <div class="cdn-label">JavaScript (unpkg)</div>
+              <div class="cdn-link">https://unpkg.com/neo-alert@1.0.0/dist/neo-alert.min.js</div>
+            </div>
+            <div class="code-block" style="margin-top:.5rem;border-radius:var(--r12);position:relative">
+              <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+              <pre><span class="cm">&lt;!-- Add before &lt;/body&gt; --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"https://cdn.jsdelivr.net/npm/neo-alert@1.0.0/dist/neo-alert.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+  <span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Loaded from CDN!'</span>);
+<span class="tag">&lt;/script&gt;</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-script">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="cm">&lt;!-- Download dist/neo-alert.js and host it yourself --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="str">"/js/neo-alert.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+  <span class="cm">// Set global defaults once</span>
+  <span class="obj">neoAlert</span>.<span class="fn">configure</span>({
+    position:     <span class="str">'top-right'</span>,
+    duration:     <span class="nm">4000</span>,
+    pauseOnHover: <span class="bool">true</span>,
+    showProgress: <span class="bool">true</span>,
+  });
+
+  <span class="obj">neoAlert</span>.<span class="fn">info</span>(<span class="str">'App ready!'</span>, {
+    message: <span class="str">'Welcome to my app.'</span>
+  });
+<span class="tag">&lt;/script&gt;</span></pre>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-react">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="kw">import</span> { <span class="obj">neoAlert</span> } <span class="kw">from</span> <span class="str">'neo-alert'</span>;
+
+<span class="kw">function</span> <span class="fn">SaveButton</span>() {
+  <span class="kw">const</span> handleSave = <span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> id = <span class="obj">neoAlert</span>.<span class="fn">info</span>(<span class="str">'Saving…'</span>, { duration: <span class="nm">0</span> });
+    <span class="kw">try</span> {
+      <span class="kw">await</span> <span class="fn">saveData</span>();
+      <span class="obj">neoAlert</span>.<span class="fn">dismiss</span>(id);
+      <span class="obj">neoAlert</span>.<span class="fn">success</span>(<span class="str">'Saved!'</span>, { message: <span class="str">'All changes persisted.'</span> });
+    } <span class="kw">catch</span> (err) {
+      <span class="obj">neoAlert</span>.<span class="fn">dismiss</span>(id);
+      <span class="obj">neoAlert</span>.<span class="fn">error</span>(<span class="str">'Save failed'</span>, { message: err.message });
+    }
+  };
+  <span class="kw">return</span> <span class="tag">&lt;button</span> <span class="attr">onClick</span>={handleSave}<span class="tag">&gt;</span>Save<span class="tag">&lt;/button&gt;</span>;
+}
+
+<span class="cm">// Promise shorthand</span>
+<span class="kw">const</span> handleUpload = () =&gt; {
+  <span class="obj">neoAlert</span>.<span class="fn">promise</span>(<span class="fn">uploadFile</span>(file), {
+    loading: <span class="str">'Uploading…'</span>,
+    success: (data) =&gt; <span class="str">`Uploaded </span>${data.name}<span class="str">!`</span>,
+    error:   (err)  =&gt; <span class="str">`Failed: </span>${err.message}<span class="str">`</span>,
+  });
+};</pre>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="ip-vue">
+          <div class="code-block">
+            <button class="btn-copy" onclick="copyBlock(this)">Copy</button>
+            <pre><span class="cm">// main.js — register globally</span>
+<span class="kw">import</span> { <span class="fn">createApp</span> } <span class="kw">from</span> <span class="str">'vue'</span>;
+<span class="kw">import</span> { <span class="obj">neoAlert</span> } <span class="kw">from</span> <span class="str">'neo-alert'</span>;
+<span class="kw">import</span> App <span class="kw">from</span> <span class="str">'./App.vue'</span>;
+
+<span class="kw">const</span> app = <span class="fn">createApp</span>(App);
+app.config.globalProperties.<span class="prop">$toast</span> = <span class="obj">neoAlert</span>;
+app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
+
+<span class="cm">// In any .vue component:</span>
+<span class="tag">&lt;script setup&gt;</span>
+<span class="kw">import</span> { <span class="fn">getCurrentInstance</span> } <span class="kw">from</span> <span class="str">'vue'</span>;
+<span class="kw">const</span> { proxy } = <span class="fn">getCurrentInstance</span>();
+<span class="kw">const</span> notify = () =&gt; proxy.<span class="prop">$toast</span>.<span class="fn">success</span>(<span class="str">'Vue toast!'</span>);
+<span class="tag">&lt;/script&gt;</span></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ DEMO ════════ -->
+    <section class="sect" id="demo">
+      <div class="eyebrow">Interactive Demo</div>
+      <div class="sect-title">Try it live</div>
+      <div class="sect-sub">Click any button, change position or duration, and see the toasts appear in real-time.</div>
+
+      <div class="demo-shell">
+        <div class="mac-bar">
+          <span class="mac-dot md-r"></span><span class="mac-dot md-y"></span><span class="mac-dot md-g"></span>
+          <span class="mac-title">neo-alert · live preview</span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-ctrl">
+
+            <div>
+              <div class="ctrl-label">Toast Type</div>
+              <div class="btn-g">
+                <button class="nbtn nbtn-s" id="qb-s">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>Success
+                </button>
+                <button class="nbtn nbtn-e" id="qb-e">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <path d="M5 5l6 6M11 5l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>Error
+                </button>
+                <button class="nbtn nbtn-w" id="qb-w">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 3L14 13H2L8 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                    <path d="M8 7v3M8 11.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>Warning
+                </button>
+                <button class="nbtn nbtn-i" id="qb-i">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4" />
+                    <path d="M8 7.5v3M8 5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>Info
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Position</div>
+              <select class="neo-sel" id="q-pos" onchange="syncRootPos()">
+                <option value="top-right">Top Right</option>
+                <option value="top-left">Top Left</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-left">Bottom Left</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Duration</div>
+              <select class="neo-sel" id="q-dur">
+                <option value="2000">2 seconds</option>
+                <option value="4000" selected>4 seconds</option>
+                <option value="6000">6 seconds</option>
+                <option value="0">Persistent</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Options</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <label class="tog-row"><span class="tog"><input type="checkbox" id="q-prog" checked><span
+                      class="tog-sl"></span></span>Show progress bar</label>
+                <label class="tog-row"><span class="tog"><input type="checkbox" id="q-hover" checked><span
+                      class="tog-sl"></span></span>Pause on hover</label>
+                <label class="tog-row"><span class="tog"><input type="checkbox" id="q-drag" checked><span
+                      class="tog-sl"></span></span>Drag to dismiss</label>
+              </div>
+            </div>
+
+            <div>
+              <div class="ctrl-label">Extras</div>
+              <div class="btn-g">
+                <button class="nbtn nbtn-a nbtn-full" id="qb-promise">
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4" />
+                  </svg>Promise Demo
+                </button>
+                <button class="nbtn nbtn-a" id="qb-custom">Custom</button>
+                <button class="nbtn nbtn-g" onclick="neoAlert.clearAll()">Clear All</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-preview">
+            <div style="text-align:center">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
+                style="margin:0 auto 14px;display:block;opacity:.15">
+                <rect x="4" y="10" width="44" height="32" rx="9" stroke="#dde3f0" stroke-width="1.5" />
+                <path d="M15 24h22M15 30h14" stroke="#dde3f0" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="42" cy="14" r="7" fill="#4f8cff" />
+                <path d="M39.5 14l2 2 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              <div style="font-size:12px;color:var(--faint);line-height:1.65">Toasts appear at<br>the selected position
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ THEMES ════════ -->
+    <section class="sect" id="themes">
+      <div class="eyebrow">Theme Presets</div>
+      <div class="sect-title">6 Built-in Themes</div>
+      <div class="sect-sub">Click any theme to preview it live. Copy the generated code to use it in your project.</div>
+      <div class="themes-grid" id="themes-grid"></div>
+      <div class="gen-box" id="theme-gen-box">
+        <div class="gen-box-head">
+          <span class="gen-box-title" id="tgen-label">Theme Code</span>
+          <button class="btn-copy" id="tgen-copy" onclick="copyEl('tgen-pre')">Copy</button>
+        </div>
+        <div class="gen-box-body">
+          <pre id="tgen-pre"></pre>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ BUILDER ════════ -->
+    <section class="sect" id="builder">
+      <div class="eyebrow">Custom Builder</div>
+      <div class="sect-title">Build Your Toast</div>
+      <div class="sect-sub">Adjust every visual property. The preview updates live. Copy the ready-to-use code and fire
+        it instantly.</div>
+
+      <div class="builder-grid">
+        <div class="builder-left">
+
+          <div class="b-sect">
+            <div class="b-label">Content</div>
+            <div class="field-r">
+              <div class="field">
+                <div class="f-label">Type</div>
+                <select class="neo-sel" id="b-type" oninput="updateBuilder()">
+                  <option value="success">Success</option>
+                  <option value="error">Error</option>
+                  <option value="warning">Warning</option>
+                  <option value="info" selected>Info</option>
+                </select>
+              </div>
+              <div class="field">
+                <div class="f-label">Position</div>
+                <select class="neo-sel" id="b-pos" oninput="updateBuilder()">
+                  <option value="top-right" selected>Top Right</option>
+                  <option value="top-left">Top Left</option>
+                  <option value="bottom-right">Bottom Right</option>
+                  <option value="bottom-left">Bottom Left</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Title</div>
+                <input class="neo-input" id="b-title" value="Upload complete" oninput="updateBuilder()">
+              </div>
+            </div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Message</div>
+                <input class="neo-input" id="b-msg" value="3 files · 2.4 MB transferred." oninput="updateBuilder()">
+              </div>
+            </div>
+            <div class="field-r">
+              <div class="field">
+                <div class="f-label">Duration (ms)</div>
+                <input class="neo-input" id="b-dur" type="number" value="4000" step="500" min="0"
+                  oninput="updateBuilder()">
+              </div>
+              <div class="field" style="justify-content:flex-end;padding-top:16px">
+                <label class="tog-row"><span class="tog"><input type="checkbox" id="b-prog" checked
+                      oninput="updateBuilder()"><span class="tog-sl"></span></span>Progress</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-sect">
+            <div class="b-label">Colors</div>
+            <div class="field-r">
+              <div class="field">
+                <div class="f-label">Background</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-bg" value="#0d1220"
+                      oninput="syncColor('bg',this.value)"></div>
+                  <input class="color-val" id="cv-bg" value="rgba(13,18,32,0.82)"
+                    oninput="syncColorVal('bg',this.value)">
+                </div>
+              </div>
+              <div class="field">
+                <div class="f-label">Border</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-bd" value="#38bdf8"
+                      oninput="syncColor('bd',this.value)"></div>
+                  <input class="color-val" id="cv-bd" value="rgba(56,189,248,0.28)"
+                    oninput="syncColorVal('bd',this.value)">
+                </div>
+              </div>
+            </div>
+            <div class="field-r">
+              <div class="field">
+                <div class="f-label">Title Color</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-tc" value="#dde3f0"
+                      oninput="syncColor('tc',this.value)"></div>
+                  <input class="color-val" id="cv-tc" value="#dde3f0" oninput="syncColorVal('tc',this.value)">
+                </div>
+              </div>
+              <div class="field">
+                <div class="f-label">Message Color</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-mc" value="#7a86a3"
+                      oninput="syncColor('mc',this.value)"></div>
+                  <input class="color-val" id="cv-mc" value="rgba(221,227,240,0.55)"
+                    oninput="syncColorVal('mc',this.value)">
+                </div>
+              </div>
+            </div>
+            <div class="field-r">
+              <div class="field">
+                <div class="f-label">Icon Background</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-ib" value="#0d2a3f"
+                      oninput="syncColor('ib',this.value)"></div>
+                  <input class="color-val" id="cv-ib" value="rgba(56,189,248,0.15)"
+                    oninput="syncColorVal('ib',this.value)">
+                </div>
+              </div>
+              <div class="field">
+                <div class="f-label">Icon Color</div>
+                <div class="color-row">
+                  <div class="color-swatch"><input type="color" id="cp-ic" value="#38bdf8"
+                      oninput="syncColor('ic',this.value)"></div>
+                  <input class="color-val" id="cv-ic" value="#38bdf8" oninput="syncColorVal('ic',this.value)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-sect">
+            <div class="b-label">Shape & Blur</div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Border Radius</div>
+                <div class="range-wrap"><input type="range" min="4" max="28" value="14" id="b-radius"
+                    oninput="updateBuilder()"><span class="range-val" id="rv-radius">14px</span></div>
+              </div>
+            </div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Backdrop Blur</div>
+                <div class="range-wrap"><input type="range" min="0" max="48" value="22" id="b-blur"
+                    oninput="updateBuilder()"><span class="range-val" id="rv-blur">22px</span></div>
+              </div>
+            </div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Toast Width</div>
+                <div class="range-wrap"><input type="range" min="260" max="480" value="320" id="b-width"
+                    oninput="updateBuilder()"><span class="range-val" id="rv-width">320px</span></div>
+              </div>
+            </div>
+            <div class="field-r wide">
+              <div class="field">
+                <div class="f-label">Shadow Intensity</div>
+                <div class="range-wrap"><input type="range" min="0" max="100" value="50" id="b-shadow"
+                    oninput="updateBuilder()"><span class="range-val" id="rv-shadow">50%</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="builder-right">
+          <div class="bp-box">
+            <div class="bp-label">Live Preview</div>
+            <div class="bp-stage" id="bp-stage"></div>
+            <div class="bp-actions">
+              <button class="nbtn nbtn-a" style="flex:1" onclick="fireCustom()">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>Fire This Toast
+              </button>
+              <button class="nbtn nbtn-g" onclick="resetBuilder()">Reset</button>
+            </div>
+          </div>
+          <div class="gen-box">
+            <div class="gen-box-head">
+              <span class="gen-box-title">Generated Code</span>
+              <button class="btn-copy" id="gen-copy" onclick="copyEl('gen-pre')">Copy</button>
+            </div>
+            <div class="gen-box-body">
+              <pre id="gen-pre"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ API ════════ -->
+    <section class="sect" id="api">
+      <div class="eyebrow">API Reference</div>
+      <div class="sect-title">Complete API</div>
+      <div class="sect-sub">All methods, options, and types documented in one place.</div>
+
+      <div class="api-grid">
+        <div class="api-card">
+          <div class="api-sig">neoAlert(options)</div>
+          <p class="api-desc">Core call with full options object. Returns the unique toast ID.</p>
+          <table class="param-t">
+            <tr>
+              <td class="pn">type</td>
+              <td class="pt">string</td>
+              <td class="pd">success | error | warning | info</td>
+            </tr>
+            <tr>
+              <td class="pn">title</td>
+              <td class="pt">string</td>
+              <td class="pd">Headline text (required)</td>
+            </tr>
+            <tr>
+              <td class="pn">message</td>
+              <td class="pt">string?</td>
+              <td class="pd">Optional body description</td>
+            </tr>
+            <tr>
+              <td class="pn">position</td>
+              <td class="pt">string?</td>
+              <td class="pd">top-right | top-left | bottom-right | bottom-left</td>
+            </tr>
+            <tr>
+              <td class="pn">duration</td>
+              <td class="pt">number?</td>
+              <td class="pd">Auto-dismiss ms. 0 = persistent</td>
+            </tr>
+            <tr>
+              <td class="pn">showProgress</td>
+              <td class="pt">boolean?</td>
+              <td class="pd">Show countdown progress bar</td>
+            </tr>
+            <tr>
+              <td class="pn">pauseOnHover</td>
+              <td class="pt">boolean?</td>
+              <td class="pd">Freeze timer on mouse hover</td>
+            </tr>
+            <tr>
+              <td class="pn">draggable</td>
+              <td class="pt">boolean?</td>
+              <td class="pd">Enable drag-to-dismiss</td>
+            </tr>
+            <tr>
+              <td class="pn">theme</td>
+              <td class="pt">object?</td>
+              <td class="pd">Custom visual overrides (see customizer)</td>
+            </tr>
+            <tr>
+              <td class="pn">onDismiss</td>
+              <td class="pt">fn?</td>
+              <td class="pd">Callback fired when toast closes</td>
+            </tr>
+          </table>
+        </div>
+        <div class="api-card">
+          <div class="api-sig">neoAlert.promise(p, msgs)</div>
+          <p class="api-desc">Wrap a Promise — shows spinner, auto-resolves to success or error.</p>
+          <table class="param-t">
+            <tr>
+              <td class="pn">p</td>
+              <td class="pt">Promise</td>
+              <td class="pd">The async operation to track</td>
+            </tr>
+            <tr>
+              <td class="pn">msgs.loading</td>
+              <td class="pt">string</td>
+              <td class="pd">Shown while loading</td>
+            </tr>
+            <tr>
+              <td class="pn">msgs.success</td>
+              <td class="pt">string|fn</td>
+              <td class="pd">On resolve: string or (data)=>string</td>
+            </tr>
+            <tr>
+              <td class="pn">msgs.error</td>
+              <td class="pt">string|fn</td>
+              <td class="pd">On reject: string or (err)=>string</td>
+            </tr>
+          </table>
+        </div>
+        <div class="api-card">
+          <div class="api-sig">neoAlert.configure(opts)</div>
+          <p class="api-desc">Set global defaults once at app start. All toasts inherit these.</p>
+          <table class="param-t">
+            <tr>
+              <td class="pn">position</td>
+              <td class="pt">string</td>
+              <td class="pd">Default position</td>
+            </tr>
+            <tr>
+              <td class="pn">duration</td>
+              <td class="pt">number</td>
+              <td class="pd">Default duration in ms</td>
+            </tr>
+            <tr>
+              <td class="pn">maxToasts</td>
+              <td class="pt">number</td>
+              <td class="pd">Max simultaneous (default: 6)</td>
+            </tr>
+            <tr>
+              <td class="pn">pauseOnHover</td>
+              <td class="pt">boolean</td>
+              <td class="pd">Global pause-on-hover toggle</td>
+            </tr>
+            <tr>
+              <td class="pn">showProgress</td>
+              <td class="pt">boolean</td>
+              <td class="pd">Global progress bar toggle</td>
+            </tr>
+            <tr>
+              <td class="pn">draggable</td>
+              <td class="pt">boolean</td>
+              <td class="pd">Global drag-to-dismiss toggle</td>
+            </tr>
+          </table>
+        </div>
+        <div class="api-card">
+          <div class="api-sig">neoAlert.dismiss(id)</div>
+          <p class="api-desc">Dismiss a specific toast programmatically using its returned ID.</p>
+          <table class="param-t">
+            <tr>
+              <td class="pn">id</td>
+              <td class="pt">string</td>
+              <td class="pd">ID returned from any neoAlert() call</td>
+            </tr>
+          </table>
+          <div style="height:1rem"></div>
+          <div class="api-sig">neoAlert.clearAll()</div>
+          <p class="api-desc" style="margin-top:.5rem">Dismiss every active toast with smooth exit animations.</p>
+          <div style="height:1rem"></div>
+          <div class="api-sig">neoAlert.version</div>
+          <p class="api-desc" style="margin-top:.5rem">Returns the current version string: <code
+              style="font-family:var(--mono);font-size:11px;color:var(--info)">"1.0.0"</code></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════ FEATURES ════════ -->
+    <section class="sect" id="features">
+      <div class="eyebrow">Features</div>
+      <div class="sect-title">Everything you need</div>
+      <div style="height:2rem"></div>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="fi fi-b"><svg viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2" />
+              <circle cx="9" cy="9" r="2.5" fill="currentColor" />
+            </svg></div>
+          <h3>Glassmorphism</h3>
+          <p>Frosted-glass UI with backdrop-filter blur, layered shadows, and translucent backgrounds.</p>
+        </div>
+        <div class="feat-card">
+          <div class="fi fi-g"><svg viewBox="0 0 18 18" fill="none">
+              <path d="M3 9l5 5 7-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
+          <h3>Smart Stacking</h3>
+          <p>Intelligent queue — toasts stack smoothly, oldest is removed automatically when the limit is reached.</p>
+        </div>
+        <div class="feat-card">
+          <div class="fi fi-y"><svg viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4" />
+              <path d="M9 5v4.5l3 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg></div>
+          <h3>Auto Dismiss + Pause</h3>
+          <p>Progress bar counts down to auto-dismiss. Hover-pause freezes the timer exactly where it stopped.</p>
+        </div>
+        <div class="feat-card">
+          <div class="fi fi-p"><svg viewBox="0 0 18 18" fill="none">
+              <path d="M9 3v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4" />
+            </svg></div>
+          <h3>Promise API</h3>
+          <p>Track any async operation — loading spinner auto-transitions to success or error on completion.</p>
+        </div>
+        <div class="feat-card">
+          <div class="fi fi-r"><svg viewBox="0 0 18 18" fill="none">
+              <path d="M5 13l8-8M9 5h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
+          <h3>Drag to Dismiss</h3>
+          <p>Pointer and touch drag with opacity feedback. 80px threshold before committing; snaps back otherwise.</p>
+        </div>
+        <div class="feat-card">
+          <div class="fi fi-c"><svg viewBox="0 0 18 18" fill="none">
+              <path d="M4 9h10M9 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
+          <h3>Full Theming</h3>
+          <p>Override any property per-toast: background, border, colors, radius, blur, shadow. 6 presets included.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+    <footer class="footer">
+      <p>NEO ALERT · <a href="https://github.com/YOUR-USERNAME/neo-alert">GitHub</a> · v1.0.0 · MIT License</p>
+    </footer>
+
+  </div>
+
+  <!-- ════════════════════════════════════════
+     DEMO + THEMES + BUILDER LOGIC  (demo/app.js contents inlined)
+════════════════════════════════════════ -->
+  <script src="demo/app.js"></script>
+
+</body>
+
+</html>

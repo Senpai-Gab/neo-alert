@@ -64,13 +64,14 @@
     html {
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
+      /* overflow-x here (not body) — avoids breaking position:fixed on iOS Safari */
+      overflow-x: hidden;
     }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--ff);
-      overflow-x: hidden;
       min-height: 100vh;
       /* Prevent toast animations from triggering horizontal scroll on mobile */
       overscroll-behavior-x: none;
@@ -934,6 +935,34 @@
       box-shadow: var(--shadow-sm);
     }
 
+    /* ── Accordion header (desktop: static label; mobile: clickable) ── */
+    .b-acc-hd {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: default;
+      text-align: left;
+    }
+
+    .b-acc-arrow {
+      display: none; /* shown on mobile */
+      color: var(--faint);
+      flex-shrink: 0;
+      transition: transform .22s ease;
+    }
+
+    .b-accordion.collapsed .b-acc-arrow {
+      transform: rotate(-90deg);
+    }
+
+    .b-accordion.collapsed .b-acc-body {
+      display: none;
+    }
+
     .b-sect {
       padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
@@ -1092,6 +1121,11 @@
     .bp-actions {
       display: flex;
       gap: 8px;
+    }
+
+    /* Mobile-only tab switcher — hidden on desktop */
+    .builder-mtabs {
+      display: none;
     }
 
     /* ═══════════════════════════════════════════
@@ -1274,6 +1308,17 @@
     }
 
     /* ═══════════════════════════════════════════
+   TOAST OFFSET — keep toasts below sticky navbar
+   The library injects at z-index:2147483647 (above nav),
+   but we offset the container so toasts are visually clear
+   of the 52px topnav instead of starting at viewport top.
+═══════════════════════════════════════════ */
+    #neo-alert-root.neo-pos-tr,
+    #neo-alert-root.neo-pos-tl {
+      top: 52px !important;
+    }
+
+    /* ═══════════════════════════════════════════
    RESPONSIVE — TABLET (≤ 1024px)
 ═══════════════════════════════════════════ */
     @media (max-width: 1024px) {
@@ -1338,6 +1383,12 @@
       .builder-grid {
         grid-template-columns: 1fr;
       }
+
+      /* Tab buttons: slightly smaller to fit more tabs */
+      .tab-btn {
+        padding: .65rem .75rem;
+        font-size: 12px;
+      }
     }
 
     /* ═══════════════════════════════════════════
@@ -1357,17 +1408,25 @@
         top: calc(52px + env(safe-area-inset-top, 0px));
       }
 
+      /* Toast offset: account for taller nav on notched devices */
+      #neo-alert-root.neo-pos-tr,
+      #neo-alert-root.neo-pos-tl {
+        top: calc(52px + env(safe-area-inset-top, 0px)) !important;
+        padding-top: 8px !important;
+      }
+
       .page {
         padding: 0 1rem;
       }
 
       /* Prevent horizontal overflow — all children must stay inside viewport */
-      .page * {
+      .page > * {
         max-width: 100%;
+        overflow-x: hidden;
       }
 
       .hero {
-        padding: 4rem 0 3rem;
+        padding: 3.5rem 0 2.5rem;
       }
 
       .hero h1 {
@@ -1400,7 +1459,7 @@
         grid-template-columns: 1fr;
       }
 
-      /* Demo buttons: single column on very small screens */
+      /* Demo buttons: two columns on mobile */
       .btn-g {
         grid-template-columns: 1fr 1fr;
       }
@@ -1410,6 +1469,10 @@
       }
 
       /* Code blocks: horizontal scroll only, no layout break */
+      .code-shell {
+        overflow: hidden;
+      }
+
       .code-block {
         padding: 1.125rem 1rem;
         overflow-x: auto;
@@ -1423,22 +1486,132 @@
         /* scroll the code, not the page */
       }
 
+      /* Tab buttons: compact on mobile */
+      .tab-btn {
+        padding: .6rem .625rem;
+        font-size: 11.5px;
+      }
+
+      .tab-row {
+        padding: 0 .5rem;
+      }
+
       .builder-grid {
         grid-template-columns: 1fr;
+        gap: 0;
       }
 
       .builder-left {
         border-radius: var(--r16);
       }
 
-      /* Builder color row: shrink text field */
+      /* ── Mobile tab bar for builder ── */
+      .builder-mtabs {
+        display: flex;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--r12);
+        padding: 4px;
+        gap: 4px;
+        margin-bottom: .875rem;
+        box-shadow: var(--shadow-xs);
+      }
+
+      .bmt-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 12px;
+        font-family: var(--ff);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        background: none;
+        border: none;
+        border-radius: var(--r8);
+        cursor: pointer;
+        transition: all .18s ease;
+        white-space: nowrap;
+      }
+
+      .bmt-btn.bmt-active {
+        background: var(--bg3);
+        color: var(--accent);
+        box-shadow: var(--shadow-xs);
+        border: 1px solid rgba(0, 122, 255, 0.18);
+      }
+
+      .builder-left.bmhide,
+      .builder-right.bmhide {
+        display: none;
+      }
+
+      /* ── Accordion: enable on mobile ── */
+      .b-acc-hd {
+        cursor: pointer;
+        padding: .25rem 0;
+        margin-bottom: .75rem;
+      }
+
+      .b-acc-hd:hover .b-label {
+        color: var(--accent);
+      }
+
+      .b-acc-arrow {
+        display: block;
+      }
+
+      /* ── Color fields: one per row ── */
+      .b-color-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .color-swatch {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+      }
+
       .color-val {
-        font-size: 10.5px;
-        padding: 5px 6px;
+        font-size: 11px;
+        padding: 7px 8px;
+        letter-spacing: -.01em;
+      }
+
+      .range-wrap input[type=range] {
+        height: 20px;
+      }
+
+      .b-sect {
+        padding: 1rem 1.25rem;
+      }
+
+      .bp-actions .nbtn {
+        padding: 11px 14px;
       }
 
       .api-grid {
         grid-template-columns: 1fr;
+      }
+      .param-t {
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      .pn {
+        width: 36%;
+        font-size: 11px;
+      }
+
+      .pt {
+        width: 24%;
+        font-size: 11px;
+      }
+
+      .pd {
+        font-size: 11px;
       }
 
       .mac-title {
@@ -1471,6 +1644,28 @@
         padding: 1.25rem;
         min-height: 120px;
       }
+
+      /* Builder sections: tighter on mobile */
+      .b-sect {
+        padding: 1rem 1.25rem;
+      }
+
+      /* BP actions: wrap if needed */
+      .bp-actions {
+        flex-wrap: wrap;
+      }
+
+      /* API card: tighter padding */
+      .api-card {
+        padding: 1rem;
+      }
+
+      /* API sig: allow wrapping */
+      .api-sig {
+        white-space: normal;
+        word-break: break-word;
+        font-size: 11px;
+      }
     }
 
     /* ═══════════════════════════════════════════
@@ -1496,5 +1691,21 @@
 
       .nbtn-full {
         grid-column: 1;
+      }
+
+      /* On very small screens: single-column button grid in builder too */
+      .bp-actions {
+        flex-direction: column;
+      }
+
+      .bp-actions .nbtn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Tab buttons: even more compact */
+      .tab-btn {
+        padding: .55rem .5rem;
+        font-size: 11px;
       }
     }

@@ -340,6 +340,52 @@ function fireCustom() {
   });
 }
 
+/* Wrapper used by the "Fire This Toast" button — fires toast then
+   switches to Preview tab on mobile so the user can see the result */
+function fireCustomAndPreview() {
+  fireCustom();
+  // Only auto-switch when the mobile tab bar is visible
+  var tabs = document.getElementById('builder-mtabs');
+  if (tabs && getComputedStyle(tabs).display !== 'none') {
+    var previewBtn = document.getElementById('bmt-preview');
+    if (previewBtn) switchBuilderTab('preview', previewBtn);
+  }
+}
+
+/* ─────────────────────────────────────────
+   BUILDER — MOBILE TAB SWITCHER
+───────────────────────────────────────── */
+function switchBuilderTab(tab, btn) {
+  // Update tab button states
+  document.querySelectorAll('.bmt-btn').forEach(function (b) {
+    b.classList.remove('bmt-active');
+  });
+  btn.classList.add('bmt-active');
+  // Show/hide panels
+  var left  = document.getElementById('bleft-panel');
+  var right = document.getElementById('bright-panel');
+  if (!left || !right) return;
+  if (tab === 'settings') {
+    left.classList.remove('bmhide');
+    right.classList.add('bmhide');
+  } else {
+    left.classList.add('bmhide');
+    right.classList.remove('bmhide');
+  }
+}
+
+/* ─────────────────────────────────────────
+   BUILDER — ACCORDION SECTIONS (mobile)
+───────────────────────────────────────── */
+function toggleBAccordion(id) {
+  var sect = document.getElementById(id);
+  if (!sect) return;
+  var isOpen = !sect.classList.contains('collapsed');
+  sect.classList.toggle('collapsed', isOpen);
+  var hd = sect.querySelector('.b-acc-hd');
+  if (hd) hd.setAttribute('aria-expanded', String(!isOpen));
+}
+
 function resetBuilder() {
   var r = function (id) { return document.getElementById(id); };
   r('b-type').value    = 'info';
@@ -367,6 +413,13 @@ function resetBuilder() {
 document.addEventListener('DOMContentLoaded', function () {
   renderThemes();
   updateBuilder();
+
+  // On mobile, start with Settings tab active (left panel visible)
+  var tabs = document.getElementById('builder-mtabs');
+  if (tabs && getComputedStyle(tabs).display !== 'none') {
+    var right = document.getElementById('bright-panel');
+    if (right) right.classList.add('bmhide');
+  }
 
   // Welcome toast
   setTimeout(function () {

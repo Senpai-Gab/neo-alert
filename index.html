@@ -3,15 +3,33 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description"
     content="NEO ALERT — A futuristic toast notification library. Glassmorphism UI, full theming, promise API.">
-  <title>NEO ALERT — Toast Notification Library</title>
-  <link rel="icon" href="src/img/alert-icon.png">
+  <title>NEO ALERT | Toast Notification Library</title>
+  <link rel="icon" href="src/img/neo-alert-icon.png">
   <!-- Neo Custom CSS -->
   <link rel="stylesheet" href="src/css/style.css">
   <!-- NEO ALERT Library -->
   <script src="dist/neo-alert.js"></script>
+  <style>
+    /* Late-load override: keep toast container below the 52px sticky navbar.
+       This <style> runs after neo-alert.js injects its own <style>, so our
+       !important declarations win the cascade on top-positioned containers. */
+    #neo-alert-root.neo-pos-tr,
+    #neo-alert-root.neo-pos-tl {
+      top: 52px !important;
+    }
+
+    @media (max-width: 600px) {
+
+      #neo-alert-root.neo-pos-tr,
+      #neo-alert-root.neo-pos-tl {
+        top: calc(52px + env(safe-area-inset-top, 0px)) !important;
+        padding-top: 8px !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -351,11 +369,34 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
       <div class="sect-sub">Adjust every visual property. The preview updates live. Copy the ready-to-use code and fire
         it instantly.</div>
 
-      <div class="builder-grid">
-        <div class="builder-left">
+      <!-- Mobile-only tab switcher -->
+      <div class="builder-mtabs" id="builder-mtabs">
+        <button class="bmt-btn bmt-active" id="bmt-settings" onclick="switchBuilderTab('settings',this)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Settings
+        </button>
+        <button class="bmt-btn" id="bmt-preview" onclick="switchBuilderTab('preview',this)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <rect x="1.5" y="3.5" width="13" height="9" rx="2" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M5 8h6M8 8l-2-2M8 8l-2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Preview &amp; Code
+        </button>
+      </div>
 
-          <div class="b-sect">
-            <div class="b-label">Content</div>
+      <div class="builder-grid">
+        <div class="builder-left" id="bleft-panel">
+
+          <!-- ── Content accordion ── -->
+          <div class="b-sect b-accordion" id="bacc-content">
+            <button class="b-acc-hd" onclick="toggleBAccordion('bacc-content')" aria-expanded="true">
+              <span class="b-label" style="margin:0">Content</span>
+              <svg class="b-acc-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="b-acc-body">
             <div class="field-r">
               <div class="field">
                 <div class="f-label">Type</div>
@@ -399,11 +440,17 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
                       oninput="updateBuilder()"><span class="tog-sl"></span></span>Progress</label>
               </div>
             </div>
+            </div><!-- /.b-acc-body -->
           </div>
 
-          <div class="b-sect">
-            <div class="b-label">Colors</div>
-            <div class="field-r">
+          <!-- ── Colors accordion ── -->
+          <div class="b-sect b-accordion" id="bacc-colors">
+            <button class="b-acc-hd" onclick="toggleBAccordion('bacc-colors')" aria-expanded="true">
+              <span class="b-label" style="margin:0">Colors</span>
+              <svg class="b-acc-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="b-acc-body">
+            <div class="field-r b-color-grid">
               <div class="field">
                 <div class="f-label">Background</div>
                 <div class="color-row">
@@ -423,7 +470,7 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
                 </div>
               </div>
             </div>
-            <div class="field-r">
+            <div class="field-r b-color-grid">
               <div class="field">
                 <div class="f-label">Title Color</div>
                 <div class="color-row">
@@ -442,7 +489,7 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
                 </div>
               </div>
             </div>
-            <div class="field-r">
+            <div class="field-r b-color-grid">
               <div class="field">
                 <div class="f-label">Icon Background</div>
                 <div class="color-row">
@@ -461,10 +508,16 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
                 </div>
               </div>
             </div>
+            </div><!-- /.b-acc-body -->
           </div>
 
-          <div class="b-sect">
-            <div class="b-label">Shape & Blur</div>
+          <!-- ── Shape & Blur accordion ── -->
+          <div class="b-sect b-accordion" id="bacc-shape">
+            <button class="b-acc-hd" onclick="toggleBAccordion('bacc-shape')" aria-expanded="true">
+              <span class="b-label" style="margin:0">Shape &amp; Blur</span>
+              <svg class="b-acc-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="b-acc-body">
             <div class="field-r wide">
               <div class="field">
                 <div class="f-label">Border Radius</div>
@@ -493,16 +546,17 @@ app.<span class="fn">mount</span>(<span class="str">'#app'</span>);
                     oninput="updateBuilder()"><span class="range-val" id="rv-shadow">50%</span></div>
               </div>
             </div>
+            </div><!-- /.b-acc-body -->
           </div>
 
         </div>
 
-        <div class="builder-right">
+        <div class="builder-right" id="bright-panel">
           <div class="bp-box">
             <div class="bp-label">Live Preview</div>
             <div class="bp-stage" id="bp-stage"></div>
             <div class="bp-actions">
-              <button class="nbtn nbtn-a" style="flex:1" onclick="fireCustom()">
+              <button class="nbtn nbtn-a" style="flex:1" onclick="fireCustomAndPreview()">
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                     stroke-linejoin="round" />
